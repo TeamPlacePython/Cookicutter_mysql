@@ -1,0 +1,21 @@
+services:
+    mysql:
+        container_name: mysql_{{ cookiecutter.project_name.lower()|replace(' ', '_') }}_container_!!!SET MYSQL_PORT!!!
+        image: {{ cookiecutter.mysql_version }}
+        working_dir: /app
+        command: 
+            - '--character-set-server=utf8mb4'
+            - '--collation-server=utf8mb4_unicode_ci'
+        restart: always
+        ports:
+            - "!!!SET MYSQL_PORT!!!:3306"
+        environment:
+            - MYSQL_DATABASE={{ cookiecutter.mysql_dbname }}
+            - MYSQL_ROOT_PASSWORD={{ cookiecutter.mysql_root_password }}
+            - MYSQL_USER={{ cookiecutter.mysql_user }}
+            - MYSQL_PASSWORD={{ cookiecutter.mysql_password }}
+        volumes:
+            - "mysql_{{ cookiecutter.project_name.lower()|replace(' ', '_') }}_volume_!!!SET MYSQL_PORT!!!:/var/lib/mysql"
+
+volumes:
+    mysql_{{ cookiecutter.project_name.lower()|replace(' ', '_') }}_volume_!!!SET MYSQL_PORT!!!:
